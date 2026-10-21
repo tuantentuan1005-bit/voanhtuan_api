@@ -1,0 +1,6 @@
+@VoAnhTuan_238060244_API_HostAddress = http://localhost:5226
+
+GET {{VoAnhTuan_238060244_API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
