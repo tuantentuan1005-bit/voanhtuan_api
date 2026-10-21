@@ -92,7 +92,7 @@ app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "VoAnhTuan_238060244 API v1");
-    c.RoutePrefix = string.Empty;
+    c.RoutePrefix = "swagger"; // Truy cập tại /swagger
 });
 
 app.UseHttpsRedirection();
@@ -102,11 +102,14 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 
+// Tự động chuyển hướng từ trang chủ / sang /swagger
+app.MapGet("/", () => Results.Redirect("/swagger"));
+
 // ── Auto Migrate + Seed ───────────────────────────────────────────────────────
 using (var phamVi = app.Services.CreateScope())
 {
     var db = phamVi.ServiceProvider.GetRequiredService<AppDbContext>();
-    db.Database.Migrate();
+    //db.Database.Migrate();
     await SeedDuLieuMau(db);
 }
 
